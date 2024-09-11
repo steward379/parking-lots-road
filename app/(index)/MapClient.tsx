@@ -187,6 +187,10 @@ function MapClient({ apiKey }: { apiKey: string }) {
     }
   }, [autocomplete, map, fetchParkingData]);
 
+  interface ExtendedGoogleMapMouseEvent extends google.maps.MapMouseEvent {
+    placeId?: string;
+  }
+  
 
   const onLoad = useCallback(function callback(map: google.maps.Map) {
 
@@ -204,7 +208,8 @@ function MapClient({ apiKey }: { apiKey: string }) {
       setAutocomplete(autocompleteInstance);
     }
       // autocompleteInstance.addListener('place_changed', handlePlaceSelect);
-      map.addListener("click", (event: google.maps.MapMouseEvent) => {
+      map.addListener("click", (event: ExtendedGoogleMapMouseEvent) => {
+        
         if (event.placeId) {
           // 阻止預設行為
           event.stop();
@@ -279,8 +284,11 @@ function MapClient({ apiKey }: { apiKey: string }) {
               
                 // "在 Google Maps 中查看" 按鈕事件
                 viewOnMapButton.addEventListener('click', () => {
-                  const googleMapsURL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.name)}`;
-                  window.open(googleMapsURL, '_blank'); // 在新標籤頁中打開 Google Maps
+
+                  if(place.name){
+                    const googleMapsURL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.name)}`;
+                    window.open(googleMapsURL, '_blank'); // 在新標籤頁中打開 Google Maps
+                  }
                 });
               });
             }
