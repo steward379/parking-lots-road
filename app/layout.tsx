@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { ThemeProvider } from "./../components/theme-provider";
 import Link from 'next/link';
-import '@/app/globals.css';
+import './globals.css';
 
 export const metadata: Metadata = {
     title: "",

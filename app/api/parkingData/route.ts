@@ -16,11 +16,9 @@ export async function POST(req: Request) {
         type: '3',
       }),
     });
-    console.log(1222223)
     const data = await response.json();
     return NextResponse.json(data);
   } catch (error) {
-    console.log(12444)
     return NextResponse.json({ error: 'Error fetching parking data' }, { status: 500 });
   }
 }
