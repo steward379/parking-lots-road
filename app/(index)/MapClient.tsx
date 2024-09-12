@@ -168,6 +168,10 @@ function MapClient({ apiKey }: { apiKey: string }) {
           setModalContent("您選擇的地點不在台北市範圍內，將重設為預設位置")
           setIsModalOpen(true); // 打開 Modal
         } else {
+          setIsModalOpen(false);
+          setModalTitle("");
+          setModalContent("");
+  
           setCurrentLocation(newCenter);
           setLastFetchedLocation(newCenter);
           if (map) {
@@ -370,8 +374,14 @@ function MapClient({ apiKey }: { apiKey: string }) {
 
                 if (newCenter.lat < taipeiLatRange[0] || newCenter.lat > taipeiLatRange[1] ||
                   newCenter.lng < taipeiLngRange[0] || newCenter.lng > taipeiLngRange[1]) {
+                  setModalTitle("請搜尋台北市內的地點");
+                  setModalContent("您選擇的地點不在台北市範圍內，將重設為預設位置");
                   setIsModalOpen(true);
                 } else {
+
+                  setIsModalOpen(false);
+                  setModalTitle("");
+                  setModalContent("");
 
                   setCurrentLocation(newCenter);
                   setLastFetchedLocation(newCenter);
